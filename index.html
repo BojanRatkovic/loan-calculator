@@ -8,6 +8,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Loan Calculator</title>
+
+    <style>
+      #loading img {
+        width: 200px;
+      }
+      #loading,
+      #results {
+        display: none;
+      }
+      .card {
+        background: #E5EFF1;
+      }
+    </style>
   </head>
   <body class="bg-dark">   
     <div class="container">
@@ -40,7 +53,9 @@
               </div>
             </form>
             <!-- LOADER HERE -->
-            <div id="loading"></div>
+            <div id="loading">
+              <img src="src/img/loader.gif" alt="Loader animation">
+            </div>
             <!-- RESULTS -->
             <div id="results" class="pt-4">
               <h5>Results</h5>

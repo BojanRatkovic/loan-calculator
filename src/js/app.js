@@ -1,11 +1,19 @@
 // Listen for submit.
 const loanForm = document.getElementById('loan-form');
-loanForm.addEventListener('submit', calculateResults);
+loanForm.addEventListener('submit', function(e){
+  // Hide results
+  document.getElementById('results').style.display = 'none';
+
+  // Show loader just for fun :)
+  document.getElementById('loading').style.display = 'block';
+
+  setTimeout(calculateResults, 2500);
+
+  e.preventDefault();
+});
 
 // Calculate Results.
-function calculateResults(e) {
-  e.preventDefault();
-
+function calculateResults() {
   // UI Vars
   const amount = document.getElementById('amount');
   const interest = document.getElementById('interest');
@@ -27,8 +35,43 @@ function calculateResults(e) {
     monthlyPayment.value = monthly.toFixed(2);
     totalPayment.value = (monthly * calculatedPayments).toFixed(2);
     totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2);
+    // Show results
+    document.getElementById('results').style.display = 'block';
+    // Hide loader
+    document.getElementById('loading').style.display = 'none';
   } else {
-    console.log("PLEASE CHECK YOUR NUMS!!!");
+    showError('Please check your numbers.');
   }
+}
 
+// Show Error.
+function showError(error) {
+  // Hide results
+  document.getElementById('results').style.display = 'none';
+
+  // Show loader just for fun :)
+  document.getElementById('loading').style.display = 'none';
+
+  // Create a <div>
+  const errorDiv = document.createElement('div');
+
+  // Get elements
+  const card = document.querySelector('.card');
+  const heading = document.querySelector('.heading');
+
+  // Add bootstrap classes
+  errorDiv.className = 'alert alert-danger';
+  // Create text node and append
+  errorDiv.appendChild(document.createTextNode(error));
+
+  // Insert error above heading
+  card.insertBefore(errorDiv, heading);
+
+  // Remove notification after 4 seconds.
+  setTimeout(clearError, 4000);
+}
+
+// Clear Error.
+function clearError() {
+  document.querySelector('.alert').remove();
 }
